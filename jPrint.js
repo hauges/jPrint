@@ -1,26 +1,24 @@
-function jPrint() {
+function jPrint(arg) {
 
   var PRINT_ELEMENT_CLASS = 'print_element';
-
-  var initialArgs = arguments;
+  var identifierClassNumber = 0;
   var initialClasses = {};
 
-  function perform() {
-    makeElementPrintable(initialArgs);
+  function perform(arg) {
+    makeElementPrintable(arg);
     print();
     reset();
   }
 
-  function makeElementPrintable(args) {
-    for (var i = 0; i < arguments.length; i++) {
-      addToClass(args[i]);
+  function makeElementPrintable(key) {
+    var jq_element = $(key);
+    for (var i = 0; i < jq_element.length; i++) {
+      var identifierClass = 'jprint_' + identifierClassNumber++;
+      initialClasses[identifierClass] = jq_element[i].className;
+      jq_element[i].className += (jq_element[i].className.length == 0 ? '' : ' ')
+        + identifierClass;
     }
-  }
-
-  function addToClass(key) {
-    var element = $(key);
-    initialClasses[key] = element[0].className;
-    element.addClass(PRINT_ELEMENT_CLASS);
+    jq_element.addClass(PRINT_ELEMENT_CLASS);
   }
 
   function print() {
@@ -29,11 +27,13 @@ function jPrint() {
 
   function reset() {
     Object.keys(initialClasses).forEach(function (key) {
-      var element = $(key)[0];
-      element.className = initialClasses[key];
+      var jq_element = $('.'+key);
+      for (var i = 0; i < jq_element.length; i++) {
+        jq_element[i].className = initialClasses[key];        
+      }
     });
   }
 
-  perform();
+  perform(arg);
 
 }

@@ -2,7 +2,9 @@
 <script src="jPrint.js"></script>
 <link rel="stylesheet" href="jPrint.css">
 
-<h1 class="print">Print this</h1>
+<h1 id="print">Print this</h1>
+<h2 class="print_it">Print this</h2>
+<h3 class="print_it">Print this</h3>
 <h1>Don't print this</h1>
 
-<button onclick="jPrint('.print')">print</button>
+<button onclick="jPrint('#print, .print_it')">print</button>
