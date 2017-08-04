@@ -5,23 +5,22 @@ function jPrint() {
   var initialArgs = arguments;
   var initialClasses = {};
 
-  function perform(initialArgs) {
-    makeElementPrintable(args);
+  function perform() {
+    makeElementPrintable(initialArgs);
     print();
     reset();
   }
 
   function makeElementPrintable(args) {
     for (var i = 0; i < arguments.length; i++) {
-      var e = $(arguments[i]);
-      addToClass(arguments[i]);
+      addToClass(args[i]);
     }
   }
 
   function addToClass(key) {
-    var element = $(key)[0];
-    initialClasses[key] = element.className;
-    element.className += ' ' + PRINT_ELEMENT_CLASS; 
+    var element = $(key);
+    initialClasses[key] = element[0].className;
+    element.addClass(PRINT_ELEMENT_CLASS);
   }
 
   function print() {
@@ -29,10 +28,12 @@ function jPrint() {
   }
 
   function reset() {
-    Object.keys(initialClasses).forEach(function (key) { 
+    Object.keys(initialClasses).forEach(function (key) {
       var element = $(key)[0];
       element.className = initialClasses[key];
     });
   }
+
+  perform();
 
 }

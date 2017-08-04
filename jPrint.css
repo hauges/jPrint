@@ -4,11 +4,11 @@
     visibility: hidden;
   }
 
-  #print_element, #print_element * {
+  .print_element, .print_element * {
     visibility: visible;
   }
 
-  #print_element {
+  .print_element {
     position: absolute;
     left: 0;
     top: 0;
